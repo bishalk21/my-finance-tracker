@@ -7,7 +7,7 @@ export const Header = () => {
   return (
     <Navbar className="header" expand="lg">
       <Container>
-        <Navbar.Brand href="/">MyFinance</Navbar.Brand>
+        <Navbar.Brand href="/">Finance Tracker</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
