@@ -2,7 +2,7 @@
 GET http://localhost:8000/
 
 # APIs
-### post new user
+### User Login
 POST http://localhost:8000/api/v1/user/
 Content-Type: application/json
 
@@ -13,3 +13,26 @@ Content-Type: application/json
     "password": "12345"
 }
 
+### post new user
+POST http://localhost:8000/api/v1/user/login/
+Content-Type: application/json
+
+{
+    "email": "kb@g.com",
+    "password": "12345"
+}
+
+### post new transaction
+POST http://localhost:8000/api/v1/transaction
+Content-Type: application/json
+
+{
+    "UserId": "62d8974f1c7955d3fda50da5",
+    "type": "credit",
+    "title": "jackson",
+    "amount": 100
+}
+
+### get all transactions
+GET http://localhost:8000/api/v1/user/transaction
+Authorization: "62d8974f1c7955d3fda50da5"

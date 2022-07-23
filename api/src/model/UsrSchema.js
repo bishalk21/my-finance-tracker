@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 const UsrSchema = new mongoose.Schema(
   {
+    status: {
+      type: String,
+      default: "inactive",
+    },
     firstName: {
       type: String,
       required: true,
@@ -15,6 +19,8 @@ const UsrSchema = new mongoose.Schema(
       type: String,
       required: true,
       minlength: 1,
+      unique: true,
+      index: 1,
     },
     password: {
       type: String,
@@ -27,4 +33,4 @@ const UsrSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Usr", UsrSchema);
+export default mongoose.model("Usr", UsrSchema); // usrs is the collection name

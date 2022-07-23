@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const connectDB = () => {
+export const connectDB = () => {
   try {
     const MONGO_CLIENT = "mongodb://localhost/finance-tracker";
     const con = mongoose.connect(MONGO_CLIENT);
@@ -11,5 +11,3 @@ const connectDB = () => {
     console.log(err);
   }
 };
-
-export default connectDB;

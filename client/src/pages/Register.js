@@ -4,6 +4,9 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { MainLayout } from "../Components/Layout/MainLayout";
 import { useState } from "react";
+import { postNewUser } from "../helpers/axiosHelper";
+import { toast } from "react-toastify";
+import { Alert } from "react-bootstrap";
 
 let initialState = {
   firstName: "",
@@ -14,6 +17,7 @@ let initialState = {
 };
 const Register = () => {
   const [user, setUser] = useState({}); // setUser
+  const [resp, setResp] = useState({}); // setResp to store the response from the server
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -21,10 +25,18 @@ const Register = () => {
     console.log(user);
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(user);
-    setUser(initialState);
+    const { confirmPassword, ...userData } = user; //
+    if (confirmPassword !== userData.password) {
+      alert("Passwords do not match");
+      return;
+    }
+    const { status, message } = await postNewUser(userData);
+    toast[status](message);
+    status === "success" && setUser(initialState);
+    setResp({ status, message });
   };
 
   return (
@@ -34,6 +46,12 @@ const Register = () => {
           <h3>Register As New User</h3>
 
           <Form onSubmit={handleOnSubmit}>
+            {resp.message && (
+              <Alert variant={resp.status === "success" ? "success" : "danger"}>
+                {resp.message}
+              </Alert>
+            )}
+
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>First Name *</Form.Label>
               <Form.Control

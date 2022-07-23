@@ -24,3 +24,8 @@ useRef is a hook that lets you access the DOM node of a component. It helps in a
 # onControlled input field
 
 onControlled is a hook that lets you control the value of an input field.
+
+- const { confirmPassword, ...userData } = user;
+
+* destructure the user object and assign it to userData
+* assign the confirmPassword to confirmPassword

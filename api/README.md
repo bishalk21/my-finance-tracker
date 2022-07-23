@@ -76,3 +76,8 @@
 - connect to mongodb
 - mongoose.connect('mongodb://localhost:27017/', { useNewUrlParser: true });
 - create a variable to store the connection
+
+# Axios
+
+- Axios is a Promise based HTTP client for the browser and node.js.
+- npm install axios
