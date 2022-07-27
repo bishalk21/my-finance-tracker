@@ -2,8 +2,6 @@ import express from "express";
 const app = express();
 import cors from "cors";
 
-connectDB();
-
 const port = 8000;
 
 app.use(cors()); // enable cross-origin resource sharing
@@ -12,6 +10,7 @@ app.use(express.json()); // enable json parsing
 import usrRouter from "./src/routers/usrRouter.js";
 import transactionRouter from "./src/routers/transactionRouter.js";
 import { connectDB } from "./src/config/dbConfig.js";
+connectDB();
 app.use("/api/v1/user", usrRouter);
 app.use("/api/v1/transaction", transactionRouter);
 
@@ -37,6 +36,7 @@ app.use("/", (req, res) => {
 
 app.use((error, req, res, next) => {
   try {
+    console.log(error);
     res.status(error.status || 500);
     res.json({
       status: "error",

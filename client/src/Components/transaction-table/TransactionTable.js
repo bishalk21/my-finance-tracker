@@ -1,6 +1,11 @@
 import Table from "react-bootstrap/Table";
 
-export const TransactionTable = () => {
+export const TransactionTable = ({ transactions, handleOnDelete }) => {
+  // console.log(transactions);
+  const total = transactions.reduce((acc, { type, amount }) => {
+    return type === "income" ? acc + amount : acc - amount;
+  }, 0);
+
   return (
     <>
       <Table striped bordered hover variant>
@@ -14,23 +19,32 @@ export const TransactionTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>20-2-22</td>
-            <td>Laptop</td>
-            <td className="text-danger text-center">-200</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>20-2-22</td>
-            <td>Laptop</td>
-            <td></td>
-            <td className="text-success">2000</td>
-          </tr>
+          {transactions.length > 0 &&
+            transactions.map((item, i) => (
+              <tr key={i}>
+                <td>{i + 1}</td>
+                {/* <td>{new Date(item.createdAt).toLocaleDateString() }</td> */}
+                <td>{new Date(item.date).toLocaleDateString()}</td>
+                <td>{item.title}</td>
+                <td className="text-danger text-center">
+                  {item.type === "expense" && "-" + item.amount}
+                </td>
+                <td className="text-success text-center">
+                  {item.type === "income" && +item.amount}
+                </td>
+                <td>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleOnDelete(item._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </Table>
-      <div className="text-end fw-bold">Balance: $20</div>
+      <div className="text-end fw-bold">Balance: $ {total}</div>
     </>
   );
 };

@@ -7,6 +7,11 @@ const TransSchema = new mongoose.Schema(
       ref: "user",
       require: true,
     },
+    date: {
+      type: Date,
+      default: Date.now(),
+      required: true,
+    },
     type: {
       type: String,
       require: true,

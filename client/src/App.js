@@ -5,16 +5,21 @@ import Register from "./pages/Register";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
 
 function App() {
+  const [isLoggedIn, setLoggedIn] = useState(false);
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login setLoggedIn={setLoggedIn} />} />
+          <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={<Dashboard isLoggedIn={isLoggedIn} />}
+          />
         </Routes>
       </BrowserRouter>
       <ToastContainer />

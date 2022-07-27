@@ -27,9 +27,10 @@ POST http://localhost:8000/api/v1/transaction
 Content-Type: application/json
 
 {
-    "UserId": "62d8974f1c7955d3fda50da5",
-    "type": "credit",
-    "title": "jackson",
+    "UserId": "62d8a7fcae991bd41735baca",
+    "type": "expense",
+    "date": "2020-01-01",
+    "title": "Apple Watch",
     "amount": 100
 }
 

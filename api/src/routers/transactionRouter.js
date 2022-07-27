@@ -1,5 +1,9 @@
 import express from "express";
-import { addTransaction } from "../model/transaction/TransModel.js";
+import {
+  addTransaction,
+  deleteTransaction,
+  getTransaction,
+} from "../model/transaction/TransModel.js";
 
 const router = express.Router();
 
@@ -7,14 +11,23 @@ router.get("/", async (req, res, next) => {
   try {
     const { authorization } = req.headers;
     console.log(authorization);
+
+    const filter = {
+      userId: authorization,
+    };
+
+    const trans = await getTransaction(filter);
+
     res.json({
       status: "success",
       message: "to do",
+      trans,
     });
   } catch (error) {
     next(error);
   }
 });
+// await
 
 router.post("/", async (req, res, next) => {
   try {
@@ -34,5 +47,32 @@ router.post("/", async (req, res, next) => {
   }
 });
 //   const { firstName, lastName, email, password } = req.body;
+
+// delete
+router.delete("/:_id", async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
+    const { _id } = req.params;
+    if (authorization && _id) {
+      const filter = {
+        userId: authorization,
+        _id,
+      };
+      const result = await deleteTransaction(filter);
+      if (result._id) {
+        return res.json({
+          status: "success",
+          message: "Transaction deleted",
+        });
+      }
+    }
+    return res.json({
+      status: "error",
+      message: "Please provide authorization and _id",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export default router;

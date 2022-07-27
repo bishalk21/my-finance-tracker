@@ -8,7 +8,7 @@ import { loginUser } from "../helpers/axiosHelper";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setLoggedIn }) => {
   const emailRef = useRef(); // create a reference to the email input
   const passwordRef = useRef();
   const navigate = useNavigate();
@@ -24,8 +24,8 @@ const Login = () => {
 
     toast[status](message);
     if (status === "success") {
-      window.localStorage.setItem("user", JSON.stringify(user));
-
+      window.sessionStorage.setItem("user", JSON.stringify(user));
+      setLoggedIn(true);
       navigate("/dashboard");
     }
   };
