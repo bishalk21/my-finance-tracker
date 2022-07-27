@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Header = ({ isLoggedIn }) => {
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
   const navigate = useNavigate();
 
   const handleOnLogOut = () => {

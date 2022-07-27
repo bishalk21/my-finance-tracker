@@ -46,7 +46,7 @@ router.post("/", async (req, res, next) => {
     next(error);
   }
 });
-//   const { firstName, lastName, email, password } = req.body;
+// const { firstName, lastName, email, password } = req.body;
 
 // delete
 router.delete("/:_id", async (req, res, next) => {
@@ -54,6 +54,7 @@ router.delete("/:_id", async (req, res, next) => {
     const { authorization } = req.headers;
     const { _id } = req.params;
     if (authorization && _id) {
+      // if user is logged in and has a valid id
       const filter = {
         userId: authorization,
         _id,
