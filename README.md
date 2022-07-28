@@ -92,7 +92,7 @@ onControlled is a hook that lets you control the value of an input field.
 
 # Redux Life Cycle
 
-- Redux Action Creators -> Action -> Dispatcher -> Reducer ->
+- Redux Action Creators -> Action -> Dispatcher -> Reducer -> State (Store -> View)
 
 * Mutation
 
@@ -107,3 +107,5 @@ onControlled is a hook that lets you control the value of an input field.
 - create action and action creators
 - connect slice reducer to the action
 - connect action creators to the components
+
+symbol === means that the symbol is unique and immutable.
