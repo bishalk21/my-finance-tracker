@@ -7,12 +7,12 @@ const transSlice = createSlice({
   name: "transaction",
   initialState,
   reducers: {
-    setTransactions: (state, { action }) => {
-      state.transactions = action;
+    setTransactions: (state, { payload }) => {
+      state.transactions = payload;
     },
   },
 });
 
-const { reducers, actions } = transSlice;
+const { reducer, actions } = transSlice;
 export const { setTransactions } = actions;
-export default reducers;
+export default reducer;

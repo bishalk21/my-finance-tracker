@@ -2,8 +2,11 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { postDataAction } from "../../pages/transaction/transAction";
 
 export const TransactionForm = ({ postData }) => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({});
 
   const handleOnChange = (e) => {
@@ -15,7 +18,7 @@ export const TransactionForm = ({ postData }) => {
   const handleOnSubmit = async (e) => {
     e.preventDefault(); // prevents the page from refreshing
     console.log(form);
-    postData(form);
+    dispatch(postDataAction(form));
   };
 
   return (
