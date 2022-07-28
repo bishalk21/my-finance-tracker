@@ -13,7 +13,7 @@ export const TransactionForm = ({ postData }) => {
   };
 
   const handleOnSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // prevents the page from refreshing
     console.log(form);
     postData(form);
   };
