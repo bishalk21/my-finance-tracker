@@ -3,7 +3,7 @@ import express from "express"; // express is a function that helps in creating a
 const app = express();
 import cors from "cors";
 
-const port = 8000;
+const port = process.env.PORT || 5000;
 import path from "path";
 
 
