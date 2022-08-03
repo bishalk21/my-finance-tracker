@@ -8,7 +8,9 @@ router.post("/login", async (req, res, next) => {
     console.log(req.body);
     const { email, password } = req.body;
 
-    const user = await getUser({ email });
+    const user = await getUser({
+      email,
+    });
     //
     if (user?.password === password) {
       user.password = undefined;

@@ -7,7 +7,7 @@ export const addTransaction = async (obj) => {
 
 // filter out the user from the database
 export const getTransaction = async (filter) => {
-  // console.log(obj);
+  console.log(filter);
   return await TransSchema.find(filter);
 };
 

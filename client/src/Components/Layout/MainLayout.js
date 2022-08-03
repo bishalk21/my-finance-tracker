@@ -1,11 +1,11 @@
 import React from "react";
 import { Header } from "./header";
 
-export const MainLayout = ({ children, isLoggedIn }) => {
+export const MainLayout = ({ children }) => {
   return (
     <div>
-      <Header isLoggedIn={isLoggedIn} />
-      {children}
+      <Header />
+      {children}{" "}
     </div>
   );
 };

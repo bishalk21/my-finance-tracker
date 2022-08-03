@@ -109,3 +109,27 @@ onControlled is a hook that lets you control the value of an input field.
 - connect action creators to the components
 
 symbol === means that the symbol is unique and immutable.
+
+- no multiple slice reducers or action creators in the same file to avoid duplicate state
+- writing clean code
+
+- userSlice to handle the state of the user or new state of the user
+- axios is a library that makes HTTP requests.
+- first call the axios and get the data from the server
+- then call the action creator to set the data to the state
+- dispatch the action to the store
+
+# Use of useEffect
+
+- if i need to add additional code after component renders, use useEffect hook
+- empty array in useEffect means that the effect will only run once, when the component is mounted
+- if object is passed in useEffect, it will run every time the object changes
+
+# Steps for user-Redux
+
+- create a slice reducer for the user
+- create a action creator for the user
+- connect the slice reducer to the action creator
+- connect the action creator to the components
+- create a component for the user
+- create a component for the user list
