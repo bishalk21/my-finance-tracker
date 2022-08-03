@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 export const connectDB = () => {
   try {
-    const MONGO_CLIENT = "mongodb://localhost/finance-tracker";
-    const con = mongoose.connect(MONGO_CLIENT);
+    const con = mongoose.connect(process.env.MONGO_CLIENT)
     if (con) {
       console.log("Connected to MongoDB");
     }

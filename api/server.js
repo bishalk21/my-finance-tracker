@@ -1,26 +1,36 @@
+import "dotenv/config";
 import express from "express"; // express is a function that helps in creating a server
 const app = express();
 import cors from "cors";
 
 const port = 8000;
+import path from "path";
+
 
 app.use(cors()); // enable cross-origin resource sharing
 app.use(express.json()); // enable json parsing
 
 import usrRouter from "./src/routers/usrRouter.js";
 import transactionRouter from "./src/routers/transactionRouter.js";
-import { connectDB } from "./src/config/dbConfig.js";
-import { authMiddleware } from "./src/middlewares/authMiddleware.js";
+import {
+  connectDB
+} from "./src/config/dbConfig.js";
+import {
+  authMiddleware
+} from "./src/middlewares/authMiddleware.js";
 connectDB();
 app.use("/api/v1/user", usrRouter);
 app.use("/api/v1/transaction", authMiddleware, transactionRouter);
 
-app.use("/", (req, res) => {
-  // app
-  res.json({
-    status: "success",
-    message: "in the API base",
-  });
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/client/build")));
+app.use("/", (req, res, next) => {
+  try {
+    res.sendFile(path.join(__dirname, "/client/build/index.html"));
+  } catch (error) {
+    next(error);
+  }
 });
 
 // app.use("/", (req, res) => {
