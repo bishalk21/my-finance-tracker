@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  background: rgba(131, 186, 184, 0.696);
+  min-height: 100vh;
+}
+
+.formpage {
+  background: rgba(232, 236, 214, 0.879);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
