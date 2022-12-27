@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { MainLayout } from '../components/MainLayout'
+import { postNewUser } from '../helpers/axiosHelper'
+import {  toast } from 'react-toastify';
 
 const initialState = {
     firstName: '',
@@ -20,9 +22,20 @@ export const Register = () => {
         setForm({...form, [name]: value});
     }
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault();
-        console.log(form);
+        // console.log(form);
+
+        // not sending confirm password using dedstructuring and rest operator
+        const {confirmPassword, ...rest} = form;
+        if (confirmPassword !== rest.password) {
+            return alert("Password and confirm password must be same");
+        }
+        const {status, message} = await postNewUser(rest);
+        // using toast
+        // toast[status] is toast["success"] or toast["error"]
+        // toast[status](message) is toast["success"](message) or toast["error"](message)
+        toast[status](message);
 
         // IN ORDER TO MAKE THE FORM CLEAR OR ALL PROPERTIES CLEAR ON BUTTON CLICK 
         // WE NEED TO USE THE SETFORM FUNCTION AND PASS AN EMPTY OBJECT
@@ -30,7 +43,7 @@ export const Register = () => {
 
         // IN ORDER TO MAKE THE FORM CLEAR OR ALL PROPERTIES CLEAR ON BUTTON CLICK
         // WE NEED TO USE THE SETFORM FUNCTION AND PASS THE INITIAL STATE
-        setForm(initialState);
+        status === "success" && setForm(initialState);
     }
 
   return (
