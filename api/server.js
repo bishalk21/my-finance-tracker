@@ -25,6 +25,15 @@ app.use("/", (req, res, next) => {
     }
 })
 
+// error handling
+app.use((error, req, res, next) => {
+    const status = error.status || 404;
+    res.status(status).json({
+        status: "error",
+        message: error.message
+    })
+})
+
 app.listen(PORT, function(error){
     error && console.log(error);
     console.log(`Server is running on port http://localhost:${PORT}`);
