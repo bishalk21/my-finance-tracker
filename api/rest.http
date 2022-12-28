@@ -23,3 +23,19 @@ Content-Type: application/json
     "email": "kb@g.com",
     "password": "asfgh"
 }
+
+### transaction api
+### Post new transaction
+POST http://localhost:8000/api/v1/transaction
+Content-Type: application/json
+
+{
+    "userId": "63aa83a4d7aa7bd0f08392ec",
+    "type": "income",
+    "title": "salary",
+    "amount": 1000
+}
+
+### get all transaction for the specific user based on their id
+GET http://localhost:8000/api/v1/transaction
+Authorization: 63aa83a4d7aa7bd0f08392ec
