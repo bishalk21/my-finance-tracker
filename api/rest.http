@@ -2,6 +2,8 @@
 GET http://localhost:8000
 
 #apis
+
+
 ### Post new user
 POST http://localhost:8000/api/v1/user
 Content-Type: application/json
@@ -9,6 +11,15 @@ Content-Type: application/json
 {
     "firstName": "Bishal",
     "lastName": "karki",
+    "email": "kb@g.com",
+    "password": "asfgh"
+}
+
+### Post new user login
+POST http://localhost:8000/api/v1/user/login
+Content-Type: application/json
+
+{
     "email": "kb@g.com",
     "password": "asfgh"
 }

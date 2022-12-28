@@ -18,3 +18,16 @@ export const postNewUser = async (user) => {
         }
     }
 }
+
+// login new user
+export const loginNewUser = async (user) => {
+    try {
+        const response = await axios.post(userEndpoint + "/login", user);
+        return response.data;
+    } catch (error) {
+        return {
+            status: "error",
+            message: error.message,
+        }
+    }
+}

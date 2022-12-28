@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Alert, Button, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { MainLayout } from '../components/MainLayout'
 import { postNewUser } from '../helpers/axiosHelper'
@@ -15,7 +15,9 @@ const initialState = {
 
 export const Register = () => {
 
-    const [form, setForm] = useState({});
+    const [form, setForm] = useState(initialState);
+    // storing response
+    const [resp, setResp] = useState({});
 
     const handleOnChange = (e) => {
         const {name, value} = e.target;
@@ -32,6 +34,8 @@ export const Register = () => {
             return alert("Password and confirm password must be same");
         }
         const {status, message} = await postNewUser(rest);
+        setResp({status, message});
+
         // using toast
         // toast[status] is toast["success"] or toast["error"]
         // toast[status](message) is toast["success"](message) or toast["error"](message)
@@ -51,6 +55,8 @@ export const Register = () => {
     <div className="formpage border shadow-lg p-4">
     <h3>Register New User</h3>
          <Form onSubmit={handleOnSubmit}>
+{resp.message &&          <Alert variant={resp.status === "success" ? "success" : "danger"} className="mt-3">{resp.message}</Alert>
+}
          <Form.Group className="mb-3" >
          <Form.Label>First Name</Form.Label>
          <Form.Control name="firstName" type="text" placeholder="Enter your first name" value={form.firstName} onChange={handleOnChange} />
