@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import {  Col, Form, Row } from 'react-bootstrap'
-import { toast } from 'react-toastify'
-import { postNewTransaction } from '../../helpers/axiosHelper'
 
-export const TransactionForm = () => {
+export const TransactionForm = ({postData}) => {
     const [form, setForm ] = useState({})
 
     const handleOnChange =(e) => {
@@ -11,17 +9,10 @@ export const TransactionForm = () => {
         setForm({...form, [name]: value})
     }
 
-    const handleOnSubmit = async (e) => {
+    const handleOnSubmit = async  (e) => {
         e.preventDefault();
-        console.log(form);
-        // getting user id from sessionstorage
-        // JSON.parse to convert string to objext
-        const user = JSON.parse(sessionStorage.getItem("user"));
-      const userId = user._id;
-
-        const {status, message} = await postNewTransaction({...form, userId});
-        toast[status](message);
-
+        // console.log(form);ode1
+        postData(form);
     }
 
   return (
@@ -35,7 +26,10 @@ export const TransactionForm = () => {
       <option value="expense">expenses</option>
     </Form.Select>
       </Col>
-        <Col md="5">
+        <Col md="2">
+          <Form.Control required onChange={handleOnChange} name="date" type="date" />
+        </Col>
+        <Col md="4">
           <Form.Control required onChange={handleOnChange} placeholder="Transaction name" name="title" />
         </Col>
         <Col md="2">

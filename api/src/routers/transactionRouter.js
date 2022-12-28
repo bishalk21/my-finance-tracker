@@ -1,5 +1,5 @@
 import express from 'express';
-import { getTransaction, insertTransaction } from '../model/transaction/transModel.js';
+import { deleteTransaction, getTransaction, insertTransaction } from '../model/transaction/transModel.js';
 const router = express.Router();
 
 router.post("/",async (req,res,next) => {
@@ -30,7 +30,8 @@ router.get("/", async (req, res, next) => {
             userId: authorization
         }
 
-        const trans = await getTransaction(filter);
+        // const trans = await getTransaction(filter);
+        const trans = await getTransaction(filter) || []
         res.json({
             status: "success",
             message: "Transaction in User",
@@ -38,6 +39,39 @@ router.get("/", async (req, res, next) => {
         })
     } catch (error) {
         next(error);
+    }
+})
+
+// delete trans
+router.delete("/:_id", async (req, res, next) => {
+    try {
+        const {authorization} = req.headers;
+        const{_id} = req.params;
+
+        if (authorization && _id) {
+            // if user is logged in and has valid id
+            const filter = {
+                userId: authorization,
+                _id,
+            }
+    
+            const result = await deleteTransaction(filter)
+
+            if (result._id){
+                return res.json({
+                    status: "success",
+                    message: "Transaction deleted successfully",
+                })
+            }
+        }
+
+
+        return res.json({
+            status: "error",
+            message: "Invalid Credentials"
+        })
+    } catch (error) {
+        next(error)
     }
 })
 

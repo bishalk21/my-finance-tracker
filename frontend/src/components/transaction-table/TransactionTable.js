@@ -1,7 +1,7 @@
 import React from 'react'
-import { Table } from 'react-bootstrap'
+import { Button, Table } from 'react-bootstrap'
 
-export const TransactionTable = ({transaction}) => {
+export const TransactionTable = ({transaction, handleOnDelete}) => {
   const total = transaction.reduce((acc, {type, amount}) =>{
 return type === "income" ? acc + amount : acc - amount
 },0);
@@ -15,6 +15,7 @@ return type === "income" ? acc + amount : acc - amount
           <th>Title</th>
           <th>Expense</th>
           <th>Income</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -22,10 +23,14 @@ return type === "income" ? acc + amount : acc - amount
         transaction.length > 0 && transaction.map((item, i) => {
          return <tr key={i}>
           <td>{i+1}</td>
-          <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+          {/* <td>{new Date(item.createdAt).toLocaleDateString()}</td> */}
+          <td>{new Date(item.date).toLocaleDateString()}</td>
           <td>{item.title}</td>
           <td className='text-danger'>{item.type === "expense" &&  "-" +  item.amount}</td>
           <td className='text-success'>{item.type === "income" && item.amount}</td>
+          <td>
+          <Button variant="danger" onClick={() => handleOnDelete(item._id)}>Delete</Button>
+          </td>
         </tr>
         })
       }

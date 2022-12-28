@@ -65,3 +65,24 @@ export const getTransaction = async () => {
         }
     }
 }
+
+//DELETE TRANSACTION
+export const deleteTransaction = async (_id) => {
+    try {
+        // get all transaction for the specific user based on their id
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        const userId = user._id;
+        const response = await axios.delete(transactionEndpoint + "/" + _id, {
+            headers: {
+                authorization: userId,
+            }
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        return {
+            status: "error",
+            message: error.message,
+        }
+    }
+}
