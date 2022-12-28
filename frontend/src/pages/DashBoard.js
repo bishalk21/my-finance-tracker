@@ -7,7 +7,7 @@ import { TransactionTable } from '../components/transaction-table/TransactionTab
 import { deleteTransaction, getTransaction, postNewTransaction } from '../helpers/axiosHelper'
 
 
-export const DashBoard = () => {
+export const DashBoard = ({isLoggedin}) => {
 
   const [transaction, setTransactions] = useState([])
 
@@ -51,7 +51,7 @@ const handleOnDelete = async (_id) => {
 }
 
   return (
-   <MainLayout>
+   <MainLayout isLoggedin={isLoggedin}>
    <Row>
     <h3 className="mt-3">DashBoard</h3>
     <hr />

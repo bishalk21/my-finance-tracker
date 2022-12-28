@@ -6,7 +6,7 @@ import { MainLayout } from '../components/MainLayout'
 import { loginNewUser } from '../helpers/axiosHelper'
 
 
-export const Login = () => {
+export const Login = ({setIsLoggedin}) => {
 
     // onControlled input field
     const emailRef = useRef();
@@ -25,7 +25,7 @@ export const Login = () => {
         // window.localStorage.setItem("user", JSON.stringify(user));
         // for security reason
         window.sessionStorage.setItem("user", JSON.stringify(user));
-
+        setIsLoggedin(true);
         navigate("/dashboard")
       }
     }
