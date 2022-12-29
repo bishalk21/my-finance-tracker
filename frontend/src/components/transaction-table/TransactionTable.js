@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Table } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDataAction, handleOnDeleteAction } from '../../pages/transaction/transAction';
 
-export const TransactionTable = ({transaction, handleOnDelete}) => {
-  const total = transaction.reduce((acc, {type, amount}) =>{
+export const TransactionTable = () => {
+  // Using redux
+  const dispatch = useDispatch();
+  const {transactions} = useSelector((state) => state.transactions)
+
+  useEffect(() => {
+    // before redux
+    // fetchData()
+
+    // Using redux
+    dispatch(fetchDataAction())
+  },[dispatch])
+
+
+
+
+  const total = transactions.reduce((acc, {type, amount}) =>{
 return type === "income" ? acc + amount : acc - amount
 },0);
   return (
@@ -20,7 +37,7 @@ return type === "income" ? acc + amount : acc - amount
       </thead>
       <tbody>
       {
-        transaction.length > 0 && transaction.map((item, i) => {
+        transactions.length > 0 && transactions.map((item, i) => {
          return <tr key={i}>
           <td>{i+1}</td>
           {/* <td>{new Date(item.createdAt).toLocaleDateString()}</td> */}
@@ -29,7 +46,7 @@ return type === "income" ? acc + amount : acc - amount
           <td className='text-danger'>{item.type === "expense" &&  "-" +  item.amount}</td>
           <td className='text-success'>{item.type === "income" && item.amount}</td>
           <td>
-          <Button variant="danger" onClick={() => handleOnDelete(item._id)}>Delete</Button>
+          <Button variant="danger" onClick={() => dispatch(handleOnDeleteAction(item._id))}>Delete</Button>
           </td>
         </tr>
         })

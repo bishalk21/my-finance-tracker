@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import {  Col, Form, Row } from 'react-bootstrap'
+import { useDispatch } from 'react-redux';
+import { postDataAction } from '../../pages/transaction/transAction'
 
-export const TransactionForm = ({postData}) => {
+export const TransactionForm = () => {
+  const dispatch = useDispatch();
     const [form, setForm ] = useState({})
 
     const handleOnChange =(e) => {
@@ -12,7 +15,7 @@ export const TransactionForm = ({postData}) => {
     const handleOnSubmit = async  (e) => {
         e.preventDefault();
         // console.log(form);ode1
-        postData(form);
+        dispatch(postDataAction(form));
     }
 
   return (
