@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Row } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 // import { useDispatch } from 'react-redux'
 // import { toast } from 'react-toastify'
 import { TransactionForm } from '../components/form/TransactionForm'
@@ -9,7 +11,7 @@ import { TransactionTable } from '../components/transaction-table/TransactionTab
 // import { fetchDataAction } from './transaction/transAction'
 
 
-export const DashBoard = ({isLoggedin}) => {
+export const DashBoard = () => {
 
   // Using redux
   // const dispatch = useDispatch();
@@ -61,9 +63,15 @@ export const DashBoard = ({isLoggedin}) => {
 //     status === "success" && fetchData()
 // }
 // no props drill down
+const navigate = useNavigate()
+const {user} = useSelector((state) => state.user)
+
+useEffect(() => {
+  !user._id && navigate("/")
+}, [user])
 
   return (
-   <MainLayout isLoggedin={isLoggedin}>
+   <MainLayout >
    <Row>
     <h3 className="mt-3">DashBoard</h3>
     <hr />

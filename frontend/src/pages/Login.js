@@ -1,17 +1,29 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Button, Form } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+// import { toast } from 'react-toastify'
 import { MainLayout } from '../components/MainLayout'
-import { loginNewUser } from '../helpers/axiosHelper'
+// import { loginNewUser } from '../helpers/axiosHelper'
+import { loginAction } from './users/userAction'
 
 
-export const Login = ({setIsLoggedin}) => {
+export const Login = () => {
+
+  const dispatch = useDispatch()
 
     // onControlled input field
     const emailRef = useRef();
     const passwordRef = useRef();
     const navigate = useNavigate()
+
+    const {user} = useSelector((state)=> state.user);
+
+    useEffect(() => {
+      user._id && navigate("/dashboard")
+    },
+    [user]
+    )
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
@@ -19,15 +31,19 @@ export const Login = ({setIsLoggedin}) => {
         const password = passwordRef.current.value;
 
         // console.log(email, password)
-        const {status, message, user} = await loginNewUser({email, password});
-        toast[status](message);
-       if( status ==="success") {
-        // window.localStorage.setItem("user", JSON.stringify(user));
-        // for security reason
-        window.sessionStorage.setItem("user", JSON.stringify(user));
-        setIsLoggedin(true);
-        navigate("/dashboard")
-      }
+        // BEFORE REDUX
+        // const {status, message, user} = await loginNewUser({email, password});
+        // toast[status](message);
+
+        // AFTER REDUX
+        dispatch(loginAction({email, password}))
+      //  if( status ==="success") {
+      //   // window.localStorage.setItem("user", JSON.stringify(user));
+      //   // for security reason
+      //   window.sessionStorage.setItem("user", JSON.stringify(user));
+      //   setIsLoggedin(true);
+      //   navigate("/dashboard")
+      // }
     }
 
   return (
