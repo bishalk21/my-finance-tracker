@@ -36,7 +36,14 @@ export const loginNewUser = async (user) => {
 // ADD TRANSACTION
 export const postNewTransaction = async (transaction) => {
     try {
-        const response = await axios.post(transactionEndpoint, transaction);
+                // get all transaction for the specific user based on their id
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        const userId = user._id;
+        const response = await axios.post(transactionEndpoint, transaction,  {
+            headers: {
+                authorization: userId,
+            }
+        });
         return response.data;
     } catch (error) {
         return {
@@ -77,7 +84,7 @@ export const deleteTransaction = async (_id) => {
                 authorization: userId,
             }
         });
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
     } catch (error) {
         return {
