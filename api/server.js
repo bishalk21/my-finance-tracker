@@ -1,6 +1,13 @@
+import 'dotenv/config';
 import express from 'express';
 const app = express()
 import cors from 'cors';
+import path from 'path';
+// path is node core module helps in accessing path
+
+// directory
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/frontend/build")));
 
 const PORT = 8000;
 
@@ -22,7 +29,8 @@ app.use("/api/v1/transaction", authMiddleware, transactionRouter)
 // routes -- server side rendering
 app.use("/", (req, res, next) => {
     try {
-        res.send("<h1>Coming Soon ...</h1>")
+        // res.send("<h1>Coming Soon ...</h1>")
+        res.sendFile(path.join(__dirname,  "/frontend/build/index.html"))
     } catch (error) {
         next(error);
     }

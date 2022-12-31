@@ -1,7 +1,10 @@
 import axios from "axios";
 
 // rootURL
-const rootURL = "http://localhost:8000";
+// const rootURL = "http://localhost:8000";
+
+// production vs development version
+const rootURL = process.env.NODE_ENV === "production" ? "" : "http://localhost:8000";
 
 // ENDPOINT
 const userEndpoint = rootURL + "/api/v1/user";
