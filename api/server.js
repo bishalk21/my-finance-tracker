@@ -9,7 +9,7 @@ import path from 'path';
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "/frontend/build")));
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 // database
 import {dbConnect} from "./src/config/dbConfig.js";

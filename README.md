@@ -8,3 +8,9 @@ This is Full Stack Expense Tracker App.
 - integrate font awesome CDN in index.html
 
 For Frontend documentation: 
+
+
+for heroku error in console:
+- heroku login
+- heroku apps
+- heroku logs --tail --app expense-tracker-app-frontend
